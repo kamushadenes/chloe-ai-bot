@@ -166,3 +166,10 @@ welcome contributions of all types, including bug fixes, new features, and docum
 ## License
 
 Chloe is released under the MIT License. See the [LICENSE](LICENSE) file for more details.
+
+## Credits
+
+- [OpenAI](https://openai.com/) for the ChatGPT model
+- [Cloudflare Workers](https://workers.cloudflare.com/) for the serverless platform
+- [awesome-chatgpt-prompts](https://github.com/f/awesome-chatgpt-prompts) for the personalities
+- [telegram-bot-cloudflare](https://github.com/cvzi/telegram-bot-cloudflare) for the Telegram bot template
