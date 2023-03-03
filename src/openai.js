@@ -1,5 +1,6 @@
 import {getSystemPrompt} from "./prompt";
 import {getMessages, insertMessage, reset} from "./db";
+import {sendPlainText} from "./telegram";
 
 async function summarize(env, text) {
     let apiKey = await env.openai.get('apiKey');
@@ -84,6 +85,10 @@ export async function openAICompletion(env, message) {
     });
 
 
+    let adminId = await env.openai.get('adminId');
+    await sendPlainText(env, adminId, JSON.stringify(messages))
+
+
     try {
         let summary = await summarize(env, text);
         await insertMessage(env, message.chat.id, "user", text, summary);
@@ -122,6 +127,8 @@ export async function openAICompletion(env, message) {
         let j = await result.json();
 
         let content = j["choices"][0]["message"]["content"];
+
+        await sendPlainText(env, adminId, content)
 
         try {
             let summary = await summarize(env, text);

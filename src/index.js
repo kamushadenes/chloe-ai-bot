@@ -76,6 +76,7 @@ async function onUpdate(env, update) {
             await reset(env, update.message.from.id);
             await sendPlainText(env, update.message.chat.id, 'Ok, I forgot everything');
         } else {
+            await sendPlainText(env, update.message.chat.id, 'I\'m under maintenance, please try again later');
             await onMessage(env, update.message)
         }
     }
@@ -86,7 +87,10 @@ async function onUpdate(env, update) {
  * https://core.telegram.org/bots/api#message
  */
 async function onMessage(env, message) {
+    let adminId = await env.openai.get('adminId');
     let completion = await openAICompletion(env, message);
-    return await sendPlainText(env, message.chat.id, completion);
+
+    await sendPlainText(env, adminId, completion);
+    //return await sendPlainText(env, message.chat.id, completion);
 }
 

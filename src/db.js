@@ -16,7 +16,7 @@ async function reset(env, userId) {
 
 async function getMessages(env, userId) {
     return await env.DB.prepare(
-        "SELECT * FROM messages WHERE userId = ? ORDER BY timestamp ASC"
+        "SELECT * FROM messages WHERE userId = ? ORDER BY timestamp DESC LIMIT 10"
     )
         .bind(userId)
         .all();
