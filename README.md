@@ -96,6 +96,7 @@ wrangler kv:key put <KEY> <VALUE> --binding openai
 ```
 
 #### D1
+
 Next, create the D1 database:
 
 ```bash
@@ -146,6 +147,16 @@ curl GET https://<worker_url>/registerWebhook
 Replace <worker_url> with the URL of your deployed worker.
 
 Once the bot is registered, it will start receiving messages from Telegram and generating responses using ChatGPT.
+
+## Roadmap
+
+Here are some of the features we plan to add to Chloe in the future:
+
+- **Web Search:** Chloe will be able to perform web searches and provide relevant results to users. This will make Chloe
+  even more useful for tasks like research and information gathering.
+
+- **Voice Integration:** Chloe will be able to use voice input and output to provide a more natural and convenient user
+  experience, using OpenAI's Whisper API.
 
 ## Contributing
 
