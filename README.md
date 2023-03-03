@@ -11,11 +11,7 @@ Chloe runs as a Cloudflare Worker and uses Cloudflare Worker KV and Cloudflare D
 - **ChatGPT Integration:** Chloe uses OpenAI's ChatGPT `gpt-3.5-turbo` model to generate responses. It has been trained
   on a vast corpus of text data, allowing it to provide accurate and natural responses.
 
-- **Contextual Summarization:** Chloe can summarize previous messages to provide users with a bigger context for the
-  conversation. This helps to maintain the flow of conversation and provides a better user experience.
-
-- **Telegram Integration:** Chloe is a Telegram bot that can be used on any device with the Telegram app. This provides
-  a flexible and convenient platform for interacting with the bot.
+- **Contextual Summarization:** Chloe automatically summarizes previous messages and adds them to it's own prompt. This helps to maintain the flow of conversation and provides a better user experience, while also taking a smaller hit from the 4096 tokens limit.
 
 - **Personality Customization:** Chloe can be customized to reflect different personalities. Whether you want a
   friendly, chatty bot or a more reserved and professional one, Chloe can be configured to meet your needs.
