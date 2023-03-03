@@ -44,14 +44,13 @@ async function summarize (env, text) {
 export async function openAICompletion (env, message) {
   const text = message.text
   const apiKey = await env.openai.get('apiKey')
-  const adminId = await env.openai.get('adminId')
 
-  const system_prompt = await getSystemPrompt(env, message)
+  const systemPrompt = await getSystemPrompt(env, message)
 
   const messages = [
     {
       role: 'system',
-      content: system_prompt.join('\n')
+      content: systemPrompt.join('\n')
     }
   ]
 

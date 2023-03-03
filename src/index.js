@@ -93,7 +93,6 @@ async function onUpdate (env, update) {
  * https://core.telegram.org/bots/api#message
  */
 async function onMessage (env, message) {
-  const adminId = await env.openai.get('adminId')
   const completion = await openAICompletion(env, message)
 
   return await sendPlainText(env, message.chat.id, completion)
