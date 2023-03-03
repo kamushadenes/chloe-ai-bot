@@ -28,7 +28,7 @@ Chloe runs as a Cloudflare Worker and uses Cloudflare Worker KV and Cloudflare D
 
 To get started with Chloe, follow these simple steps:
 
-1. Open the Telegram app and search for the `@ChloeAIBot` username.
+1. Open the Telegram app and search for the [@ChloeAIBot](https://t.me/ChloeAIBot) username.
 
 2. Initiate a conversation with Chloe by sending a message.
 
