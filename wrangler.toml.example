@@ -1,0 +1,19 @@
+name = "chloe-ai-bot"
+main = "src/index.js"
+compatibility_date = "2023-03-02"
+usage_model = "bundled"
+env = { }
+
+[triggers]
+crons = []
+
+[[kv_namespaces]]
+id = "KV_ID"
+binding = "openai"
+
+[[d1_databases]]
+binding = "DB" # i.e. available in your Worker on env.DB
+database_name = "chloe-ai-bot"
+database_id = "DB_ID" # user wrangler d1 create to create a database
+migrations_table = "migrations"
+migrations_dir = "migrations"
