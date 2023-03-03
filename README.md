@@ -118,19 +118,32 @@ Finally, deploy the worker:
 wrangler publish
 ```
 
+The output will look something like this:
+
+```bash
+Your worker has access to the following bindings:
+- KV Namespaces:
+  - openai: KV_ID
+- D1 Databases:
+  - DB: chloe-ai-bot (DB_ID)
+Total Upload: 25.13 KiB / gzip: 7.62 KiB
+Uploaded chloe-ai-bot (1.93 sec)
+Published chloe-ai-bot (0.49 sec)
+  https://chloe-ai-bot.<namespace>.workers.dev
+Current Deployment ID: xpto
+```
+
+Take note of the worker URL.
+
 ### Registering the Bot
 
-Once deployed, you'll need to register the bot with Telegram by calling the /registerWebhook endpoint. To do this, send
-a POST request to the endpoint with the following payload:
+Once deployed, you'll need to register the bot webhook URL with Telegram. To do this, just send a GET request:
 
-json
-Copy code
-{
-"url": "https://<worker_url>/webhook",
-"secret": "<telegramWebhookSecret>"
-}
-Replace <worker_url> with the URL of your deployed worker and <telegramWebhookSecret> with the value of the
-telegramWebhookSecret KV value.
+```bash
+curl GET https://<worker_url>/registerWebhook
+```
+
+Replace <worker_url> with the URL of your deployed worker.
 
 Once the bot is registered, it will start receiving messages from Telegram and generating responses using ChatGPT.
 
