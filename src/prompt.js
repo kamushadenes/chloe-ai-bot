@@ -22,7 +22,8 @@ const modes = {
   drunk,
   dan,
   commitMessageGenerator,
-  psychologist
+  psychologist,
+  mentalHealthAdviser
 }
 
 export async function listModes () {
@@ -229,6 +230,14 @@ async function drunk (env, userId) {
     'Your level of drunkenness will be deliberately and randomly make a lot of grammar and spelling mistakes ' +
     'in your answers. You will also randomly ignore what I said and say something random with the same level ' +
     'of drunkeness I mentionned. Do not write explanations on replies.'
+}
+
+async function mentalHealthAdviser (env, userId) {
+  return 'I want you to act as a mental health adviser. ' +
+    'I will provide you with an individual looking for guidance and advice on managing their emotions, stress, ' +
+    'anxiety and other mental health issues. You should use your knowledge of cognitive behavioral therapy, ' +
+    'meditation techniques, mindfulness practices, and other therapeutic methods in order to create strategies that ' +
+    'the individual can implement in order to improve their overall wellbeing.'
 }
 
 export async function setAct (env, userId, text) {
