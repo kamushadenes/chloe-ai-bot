@@ -1,7 +1,5 @@
 import { getAllUsers, reset } from './db';
-import {
-  registerWebhook, sendPlainText, startTyping, unRegisterWebhook,
-} from './telegram';
+import { registerWebhook, sendPlainText, startTyping, unRegisterWebhook, } from './telegram';
 import openAICompletion from './openai';
 import { listModes, setUserMode } from './prompt';
 
@@ -46,10 +44,9 @@ async function onUpdate(env, update) {
       if (update.message.from.id.toString() === adminId) {
         const results = await getAllUsers(env);
 
-        const promises = results.map(async (result) => sendPlainText(
-          env,
-          result.userId,
-          'Ok, I am back',
+        const promises = results.map(async (result) => sendPlainText(env,
+                                                                     result.userId,
+                                                                     'Ok, I am back',
         ));
 
         await Promise.all(promises);
@@ -84,6 +81,12 @@ async function handleWebhook(event, env, SECRET) {
     const adminId = await env.openai.get('adminId');
 
     await sendPlainText(env, adminId, `Error: ${e.toString()}`);
+
+    await sendPlainText(
+      env,
+      update.message.chat.id,
+      'Apologies, an error occurred. Please adjust your prompt or try again later.'
+    );
   }
   return new Response('Ok');
 }
