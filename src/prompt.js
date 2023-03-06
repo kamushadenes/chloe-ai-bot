@@ -219,17 +219,6 @@ export async function setInterviewerPosition(env, userId, text) {
   await setMode(env, userId, 'interviewer', text);
 }
 
-export async function setUserMode(env, userId, mode, args) {
-  switch (mode) {
-    case 'act':
-      return setAct(env, userId, args);
-    case 'interviewer':
-      return setInterviewerPosition(env, userId, args);
-    default:
-      return setMode(env, userId, mode, args);
-  }
-}
-
 const modes = {
   default: defaultMode,
   act,
@@ -255,6 +244,27 @@ const modes = {
   psychologist,
   mentalHealthAdviser,
 };
+
+export async function setUserMode(env, userId, mode, args) {
+  if (!(
+    mode in modes
+  )) {
+    return false;
+  }
+
+  switch (mode) {
+    case 'act':
+      await setAct(env, userId, args);
+      break;
+    case 'interviewer':
+      await setInterviewerPosition(env, userId, args);
+      break;
+    default:
+      await setMode(env, userId, mode, args);
+      break;
+  }
+  return true;
+}
 
 export async function listModes() {
   const amodes = [];

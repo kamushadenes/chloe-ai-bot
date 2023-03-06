@@ -33,11 +33,15 @@ async function onUpdate(env, update) {
       const mode = text.split(' ')[1];
       const args = text.split(' ').splice(2).join(' ');
 
-      await setUserMode(env, update.message.from.id, mode, args);
+      const success = await setUserMode(env, update.message.from.id, mode, args);
 
-      await reset(env, update.message.from.id);
+      if (!success) {
+        await sendPlainText(env, update.message.chat.id, `Mode ${mode} not found`);
+      } else {
+        await reset(env, update.message.from.id);
 
-      await sendPlainText(env, update.message.chat.id, `Mode set to: ${mode}`);
+        await sendPlainText(env, update.message.chat.id, `Mode set to: ${mode}`);
+      }
     } else if (text === '/backfrommaintenance') {
       if (update.message.from.id.toString() === adminId) {
         const results = await getAllUsers(env);
