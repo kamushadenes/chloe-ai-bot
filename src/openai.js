@@ -6,39 +6,31 @@ import {
 async function summarize(env, text) {
   const apiKey = await env.openai.get('apiKey');
 
-  const result = await fetch(
-    'https://api.openai.com/v1/chat/completions',
-    {
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        model: 'gpt-3.5-turbo',
-        // https://wfhbrian.com/the-best-way-to-summarize-a-paragraph-using-gpt-3/
-        messages: [
-          {
-            role: 'user',
-            content:
-              'We introduce Extreme TLDR generation, a new form of extreme summarization for '
-              + 'paragraphs. TLDR generation involves high source compression, removes stop words '
-              + 'and summarizes the paragraph whilst retaining meaning. '
-              + 'The result is the shortest possible summary that retains all of the original '
-              + 'meaning and context of the paragraph.\n'
-              + '\n'
-              + 'Example\n'
-              + '\n'
-              + 'Paragraph:\n'
-              + `\n${
-                text
-              }\n\n`
-              + 'Extreme TLDR:',
-          },
-        ],
-      }),
+  const result = await fetch('https://api.openai.com/v1/chat/completions', {
+    headers: {
+      Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json',
     },
-  );
+    method: 'POST',
+    body: JSON.stringify({
+      model: 'gpt-3.5-turbo', // https://wfhbrian.com/the-best-way-to-summarize-a-paragraph-using-gpt-3/
+      messages: [
+        {
+          role: 'user',
+          content: 'We introduce Extreme TLDR generation, a new form of extreme summarization for '
+                                                           + 'paragraphs. TLDR generation involves high source compression, removes stop words '
+                                                           + 'and summarizes the paragraph whilst retaining meaning. '
+                                                           + 'The result is the shortest possible summary that retains all of the original '
+                                                           + 'meaning and context of the paragraph.\n'
+                                                           + '\n'
+                                                           + 'Example\n'
+                                                           + '\n'
+                                                           + 'Paragraph:\n'
+                                                           + `\n${text}\n\n`
+                                                           + 'Extreme TLDR:',
+        },
+      ],
+    }),
+  });
 
   const j = await result.json();
 
@@ -53,8 +45,7 @@ async function openAICompletion(env, message) {
 
   const messages = [
     {
-      role: 'system',
-      content: systemPrompt.join('\n'),
+      role: 'system', content: systemPrompt.join(' '),
     },
   ];
 
@@ -67,13 +58,11 @@ async function openAICompletion(env, message) {
     Object.values(results).forEach((result) => {
       if (result.content.length > result.content.summary) {
         messages.push({
-          role: result.role,
-          content: result.summary,
+          role: result.role, content: result.summary,
         });
       } else {
         messages.push({
-          role: result.role,
-          content: result.content,
+          role: result.role, content: result.content,
         });
       }
     });
@@ -83,8 +72,7 @@ async function openAICompletion(env, message) {
   }
 
   messages.push({
-    role: 'user',
-    content: text,
+    role: 'user', content: text,
   });
 
   try {
@@ -97,20 +85,15 @@ async function openAICompletion(env, message) {
 
   for (; ;) {
     // eslint-disable-next-line no-await-in-loop
-    const result = await fetch(
-      'https://api.openai.com/v1/chat/completions',
-      {
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify({
-          model: 'gpt-3.5-turbo',
-          messages,
-        }),
+    const result = await fetch('https://api.openai.com/v1/chat/completions', {
+      headers: {
+        Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json',
       },
-    );
+      method: 'POST',
+      body: JSON.stringify({
+        model: 'gpt-3.5-turbo', messages,
+      }),
+    });
 
     if (result.status === 400) {
       // eslint-disable-next-line no-await-in-loop
@@ -145,8 +128,7 @@ async function openAICompletion(env, message) {
     }
 
     if (!hasContext) {
-      content = `Warning: Context backend offline, I won't recognize previous messages.\n\n${
-        content}`;
+      content = `Warning: Context backend offline, I won't recognize previous messages.\n\n${content}`;
     }
 
     return content;

@@ -27,7 +27,8 @@ async function onUpdate(env, update) {
 
     const { text } = update.message;
 
-    console.log(text);
+    console.log(`User: ${update.message.from.first_name} ${update.message.from.last_name} (${update.message.from.id})`);
+    console.log(`Request: ${text}`);
     if (text.startsWith('/mode')) {
       const mode = text.split(' ')[1];
       const args = text.split(' ').splice(2).join(' ');
@@ -52,18 +53,10 @@ async function onUpdate(env, update) {
     } else if (text === '/listmodes') {
       const modes = await listModes(env);
 
-      await sendPlainText(
-        env,
-        update.message.chat.id,
-        `Available modes:\n\n${modes.join('\n')}`,
-      );
+      await sendPlainText(env, update.message.chat.id, `Available modes:\n\n${modes.join('\n')}`);
     } else if (text === '/forget') {
       await reset(env, update.message.from.id);
-      await sendPlainText(
-        env,
-        update.message.chat.id,
-        'Ok, I forgot everything',
-      );
+      await sendPlainText(env, update.message.chat.id, 'Ok, I forgot everything');
     } else {
       await onMessage(env, update.message);
     }

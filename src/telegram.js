@@ -12,10 +12,11 @@ async function apiUrl(env, methodName, params = null) {
 
 export async function startTyping(env, update) {
   const aurl = await apiUrl(env, 'sendChatAction', {
-    chat_id: update.message.chat.id,
-    action: 'typing',
+    chat_id: update.message.chat.id, action: 'typing',
   });
-  return (await fetch(aurl)).json();
+  return (
+    await fetch(aurl)
+  ).json();
 }
 
 /**
@@ -24,11 +25,12 @@ export async function startTyping(env, update) {
  */
 export async function sendPlainText(env, chatId, text) {
   const aurl = await apiUrl(env, 'sendMessage', {
-    chat_id: chatId,
-    text,
+    chat_id: chatId, text,
   });
-  console.log(aurl);
-  return (await fetch(aurl)).json();
+  console.log(`Response: ${text}`);
+  return (
+    await fetch(aurl)
+  ).json();
 }
 
 /**
@@ -39,13 +41,11 @@ export async function registerWebhook(env, requestUrl, suffix, secret) {
   // https://core.telegram.org/bots/api#setwebhook
   const webhookUrl = `${requestUrl.protocol}//${requestUrl.hostname}${suffix}`;
   // const webhookUrl = "https://enagofsqyi3s7.x.pipedream.net";
-  const aurl = await apiUrl(
-    env,
-    'setWebhook',
-    { url: webhookUrl, secret_token: secret },
-  );
+  const aurl = await apiUrl(env, 'setWebhook', { url: webhookUrl, secret_token: secret });
 
-  const r = await (await fetch(aurl)).json();
+  const r = await (
+    await fetch(aurl)
+  ).json();
   return new Response('ok' in r && r.ok ? 'Ok' : JSON.stringify(r, null, 2));
 }
 
@@ -55,6 +55,8 @@ export async function registerWebhook(env, requestUrl, suffix, secret) {
  */
 export async function unRegisterWebhook(env) {
   const aurl = await apiUrl(env, 'setWebhook', { url: '' });
-  const r = await (await fetch(aurl)).json();
+  const r = await (
+    await fetch(aurl)
+  ).json();
   return new Response('ok' in r && r.ok ? 'Ok' : JSON.stringify(r, null, 2));
 }
