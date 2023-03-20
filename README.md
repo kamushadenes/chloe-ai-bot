@@ -1,5 +1,7 @@
 # Chloe - Your Personal ChatGPT Telegram Bot
 
+*Psst, [Chloe evolved](https://github.com/kamushadenes/chloe)**
+
 Chloe is a bot designed to interact with users using natural language. It uses OpenAI's ChatGPT model to generate
 responses and can summarize previous messages to maintain context during conversations. Chloe is a Telegram bot that can
 be used on any device with the Telegram app.
